@@ -20,7 +20,7 @@ let Nombre = [
 
     { BIENVENIDO: 'BIENVENIDO' },
     { nombre: 'Gary Rodrigo Mamani', profesion: 'ESTUDIANTE' },
-    { nombre: 'David Mamani Alanoca', profesion: 'ESTUDIANTE' },
+
 
 ];
 //manejo de JSON
@@ -48,17 +48,18 @@ app.get('/libros/:autor', (req, resp) => {
     }
 });
 
-//endpoint de autor
+//endpoint Cantidad
 app.get('/cantidad', (req, resp) => {
     const libroencontrado = librosBiblicos.length;
     if (libroencontrado) {
         resp.json({ 'la cantidad de libros es :': libroencontrado });
     } else {
-        resp.status(404).json({ mensaje: 'Autor no encontrado' });
+        resp.status(404).json({ mensaje: '......................' });
     }
 });
+//endpoint Juan
 
-app.get('/nombre/:texto', (req, res) => {
+app.get('libro/:texto', (req, res) => {
     const textoBusqueda = req.params.texto;
     const librosEncontrados = librosBiblicos.filter((libro) => libro.nombre.includes(textoBusqueda));
 
@@ -68,8 +69,11 @@ app.get('/nombre/:texto', (req, res) => {
         res.status(404).json({ mensaje: 'No se encontraron libros' });
     }
 });
-
-
+//endpoint ORDENAR
+app.get('/ordenar', (req, res) => {
+    const librosOrdenados = librosBiblicos.slice().sort((a, b) => a.nombre.localeCompare(b.nombre));
+    res.json(librosOrdenados);
+});
 
 
 
